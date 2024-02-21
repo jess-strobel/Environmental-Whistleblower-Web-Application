@@ -49,15 +49,19 @@ INSTALLED_APPS = [
 
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
-        "SCOPE": {
+        "SCOPE": [
             "profile",
             'email',
-        },
+        ],
         "AUTH_PARAMS": {
             "access_type": "online"
         }
     }
 }
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
+SOCIALACCOUNT_QUERY_PARAM_REDIRECT = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -148,5 +152,5 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-LOGIN_DIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/whistleblowingapp/signedin/"
+LOGOUT_REDIRECT_URL = "/whistleblowingapp"

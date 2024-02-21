@@ -7,9 +7,9 @@ from django.http import HttpResponse
 def index(request):
     return render(request, "whistleblowingapp/index.html")
 
-def login(request):
-    return
+def signedin(request):
+    return render(request, "whistleblowingapp/signedin.html")
 
 def logoutview(request):
     logout(request)
-    return redirect("/index")
+    return redirect("/whistleblowingapp")
