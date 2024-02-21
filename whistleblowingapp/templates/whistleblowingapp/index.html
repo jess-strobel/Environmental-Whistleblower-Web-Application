@@ -9,10 +9,5 @@
     {% load socialaccount %}
     <h2>Google Login</h2>
     <a href = "{% provider_login_url 'google' %}?next=/whistleblowingapp/signedin/">Login with Google here</a>
-
-    {% if user.is_authenticated %}
-    <p>You are signed in as {{user.email}}</p>
-    <a href = "logout">Logout</a>
-    {% endif %}
 </body>
 </html>
