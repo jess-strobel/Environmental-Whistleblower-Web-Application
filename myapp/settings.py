@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','whistleblower-b-21-3d4d90ef9657.heroku
 
 # Application definition
 
-SITE_ID = 4
+SITE_ID = 2
 
 INSTALLED_APPS = [
     'whistleblowingapp.apps.WhistleblowingappConfig',
@@ -103,18 +103,24 @@ WSGI_APPLICATION = 'myapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    "default": dj_database_url.config(
-        conn_max_age=600, 
-        conn_health_checks=True,
-        ssl_require=True, 
-    ),
-    'local': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#Added by Timothy
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
+if IS_HEROKU_APP:
+    DATABASES = {
+        "default": dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        ),
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
