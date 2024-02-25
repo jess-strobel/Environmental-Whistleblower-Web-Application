@@ -34,7 +34,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','whistleblower-b-21-3d4d90ef9657.heroku
 
 # Application definition
 
-SITE_ID = 2
+SITE_ID = 4
 
 INSTALLED_APPS = [
     'whistleblowingapp.apps.WhistleblowingappConfig',
