@@ -12,3 +12,9 @@ django-heroku
 django-database-url
 
 django-allauth
+
+Pillow
+
+django-storages
+
+boto3

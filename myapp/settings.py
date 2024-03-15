@@ -34,7 +34,8 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','whistleblower-b-21-3d4d90ef9657.heroku
 
 # Application definition
 
-SITE_ID = 2
+#CHANGE BACK TO 2 BEFORE MERGING WITH MAIN
+SITE_ID = 3
 
 INSTALLED_APPS = [
     'whistleblowingapp.apps.WhistleblowingappConfig',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'storages',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -153,12 +155,19 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# aws settings
+AWS_ACCESS_KEY_ID = '***REMOVED***'
+AWS_SECRET_ACCESS_KEY = '***REMOVED***'
+AWS_STORAGE_BUCKET_NAME = 'environmental-whistleblowing-app-storage'
+AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# s3 static settings
+AWS_LOCATION = 'static'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_URL = 'static/'
-#Added by Henry
-STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
