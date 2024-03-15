@@ -12,3 +12,5 @@ django-heroku
 django-database-url
 
 django-allauth
+
+Pillow
