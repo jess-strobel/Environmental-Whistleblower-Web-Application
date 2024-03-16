@@ -197,6 +197,3 @@ except ImportError:
     found = False
 
 
-#added by Tim (for media uploads)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

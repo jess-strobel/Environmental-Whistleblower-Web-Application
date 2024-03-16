@@ -8,7 +8,6 @@ from django.contrib.auth.models import AnonymousUser
 
 # Create your views here.
 def index(request):
-
     return render(request, "whistleblowingapp/index.html")
 
 def signedin(request):
@@ -31,16 +30,16 @@ def allreports(request):
 def submitreport(request):
     if request.method == 'POST':
         form = ReportForm(request.POST, request.FILES)
+        print(form.errors)
         if form.is_valid():
             # Save the report using the form's cleaned data
             report = form.save(commit=False)  # Don't save to database yet
-            
+
             if (request.user.is_authenticated):
-                user = request.user
+                report.user = request.user
             else:
-                user = None
-                
-            report.user = user
+                report.user = None
+
             report.save()
             return HttpResponseRedirect(reverse("whistleblowingapp:submitted"))    
     else:

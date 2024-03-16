@@ -13,7 +13,7 @@ class User(models.Model):
         return self.admin == True
     
 class Report(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE, null=True, blank=True)
     reportTitle = models.CharField(max_length=255, default='')
     reportDescription = models.TextField(default='')
     reportText = models.FileField(upload_to='report_txt/', blank=True, null=True)

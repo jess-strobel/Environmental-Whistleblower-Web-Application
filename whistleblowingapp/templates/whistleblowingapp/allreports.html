@@ -3,6 +3,8 @@
 {% for report in reports %}
     <ul style="list-style-type: none;">
 	    <li> <h3> {{ forloop.counter }}: {{ report.reportTitle }} </h3> </li>
+	Report User: {{ report.user }}
+	<br>
 	Report Description: {{ report.reportDescription }}
 	<br>
 	<br>
