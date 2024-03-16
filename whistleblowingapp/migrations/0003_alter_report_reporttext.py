@@ -10,9 +10,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='report',
-            name='reportText',
-            field=models.FileField(upload_to='report_txt/'),
-        ),
+        # migrations.AlterField(
+        #     model_name='report',
+        #     name='reportText',
+        #     field=models.FileField(upload_to='report_txt/'),
+        # ),
     ]
