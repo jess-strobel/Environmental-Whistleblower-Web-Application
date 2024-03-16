@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Report</title>
+</head>
+<form action="{% url 'whistleblowingapp:submitted' %}" method="post" class = "form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% csrf_token %}
+    {% for field in form %}
+        {% if field.name == 'user' %}
+            {% if request.user.is_authenticated %}
+                <div>
+                    <label>User:</label>
+                    <input type="text" value="{{ request.user.username }}" readonly>
+                </div>
+            {% else %}
+                <div>
+                    <label>User:</label>
+                    <input type="text" value="Anonymous" readonly>
+                </div>
+            {% endif %}
+        {% else %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endif %}
+    {% endfor %}
+    <input type="submit" class="btn btn-Dark" value="Report!">
+</form>
