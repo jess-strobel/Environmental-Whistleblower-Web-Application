@@ -1,0 +1,25 @@
+<h1>All Submitted Reports:</h1>
+
+{% for report in reports %}
+    <ul style="list-style-type: none;">
+	    <li> <h3> {{ forloop.counter }}: {{ report.reportTitle }} </h3> </li>
+	Report User: {{ report.user }}
+	<br>
+	Report Description: {{ report.reportDescription }}
+	<br>
+	<br>
+	{% if report.reportText %}
+  	    <a href="{{ report.reportText.url }}">View .txt file</a>
+	    <br>
+	{% endif %}
+	{% if report.reportPDF %}
+  	    <a href="{{ report.reportPDF.url }}">View PDF</a>
+	    <br>
+	{% endif %}
+	{% if report.reportJPEG %}
+	    <a href="{{ report.reportJPEG.url }}">View JPEG</a>
+	{% endif %}
+    </ul>
+{% endfor %}
+<br>
+<a href="{% url 'whistleblowingapp:signedin' %}">Back</a>

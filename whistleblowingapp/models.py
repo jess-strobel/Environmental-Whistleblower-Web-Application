@@ -1,4 +1,6 @@
 from django.db import models
+from django.forms import ModelForm
+from django.contrib.auth.models import User
 
 # Create your models here.
 class User(models.Model):
@@ -11,10 +13,18 @@ class User(models.Model):
         return self.admin == True
     
 class Report(models.Model):
-    reportTitle = models.CharField(max_length=255)
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE, null=True, blank=True)
+    reportTitle = models.CharField(max_length=255, default='')
+    reportDescription = models.TextField(default='')
     reportText = models.FileField(upload_to='report_txt/', blank=True, null=True)
     reportPDF = models.FileField(upload_to='report_pdf/', blank=True, null=True)
     reportJPEG = models.ImageField(upload_to='report_image/', blank=True, null=True)
-
     def __str__(self):
         return self.reportTitle
+    
+class ReportForm(ModelForm):
+    class Meta:
+        model = Report
+        fields = ["user", "reportTitle", "reportDescription", "reportText", "reportPDF", "reportJPEG"]
+
+
