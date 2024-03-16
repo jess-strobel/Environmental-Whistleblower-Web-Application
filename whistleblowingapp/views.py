@@ -36,12 +36,11 @@ def submitreport(request):
             report = form.save(commit=False)  # Don't save to database yet
             
             if (request.user.is_authenticated):
-                print(request.user)
                 user = request.user
-                report.user = user
             else:
                 user = None
                 
+            report.user = user
             report.save()
             return HttpResponseRedirect(reverse("whistleblowingapp:submitted"))    
     else:
