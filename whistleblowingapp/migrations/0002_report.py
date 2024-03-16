@@ -23,11 +23,6 @@ class Migration(migrations.Migration):
                 ('file_type', models.CharField(choices=[('txt', 'Text File'), ('pdf', 'PDF'), ('jpg', 'JPEG Image')], max_length=3)),
                 ('attachment', models.FileField(upload_to='report_attachments/')),
                 ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('reportTitle', models.CharField(max_length=255)),
-                ('reportText', models.TextField()),
-                ('reportPDF', models.FileField(upload_to='report_pdf/')),
-                ('reportJPEG', models.ImageField(upload_to='report_image/')),
-
             ],
         ),
     ]
