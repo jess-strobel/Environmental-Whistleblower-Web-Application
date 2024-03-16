@@ -6,12 +6,13 @@ from .models import User, Report, ReportForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
 
+
 # Create your views here.
 def index(request):
     return render(request, "whistleblowingapp/index.html")
 
 def signedin(request):
-    return render(request, "whistleblowingapp/signedin.html")
+    return render(request, "whistleblowingapp/signedin.html", {'posts': Report.objects.all()})
 
 def logoutview(request):
     logout(request)

@@ -27,3 +27,4 @@ class ReportForm(ModelForm):
         model = Report
         fields = ["user", "reportTitle", "reportDescription", "reportText", "reportPDF", "reportJPEG"]
 
+
