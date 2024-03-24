@@ -10,4 +10,6 @@ urlpatterns = [
     path("submitreport/", views.report, name="submitreport"),
     path("allreports/", views.allreports, name="allreports"),
     path("submitted/", views.submitreport, name="submitted"),
+    path("viewreport/<int:report_id>/", views.viewreport, name="viewreport"),
+    path("viewUserReports/", views.viewUserReports, name="viewUserReports"),
 ]

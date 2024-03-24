@@ -1,8 +1,8 @@
-<h1>All Submitted Reports:</h1>
+<h1>Your Reports:</h1>
 
 {% for report in reports %}
     <ul style="list-style-type: none;">
-	    <li> <h3> {{ forloop.counter }}: <a href="{% url 'whistleblowingapp:viewreport' report.id %}">{{ report.reportTitle }}</a> </h3> </li>
+	    <li> <h3> {{ forloop.counter }}:{{ report.reportTitle }} </h3> </li>
 	Report User: {{ report.user }}
 	<br>
 	Report Description: {{ report.reportDescription }}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -46,3 +46,26 @@ def submitreport(request):
     else:
         form = ReportForm()
     return render(request, 'whistleblowingapp/submitted.html')
+
+def viewreport(request, report_id):
+    report = get_object_or_404(Report, pk=report_id)
+    if request.user.is_authenticated and request.user.is_staff and report.status == "New":
+        # Update the status to "In Progress"
+        report.status = "In Progress"
+        report.save()
+
+
+    if request.method == 'POST':
+        # Process form submission
+        report.status = request.POST.get('status')
+        report.admin_notes = request.POST.get('admin_notes')
+        report.save()
+        return redirect('whistleblowingapp:signedin')
+    
+    return render(request, 'whistleblowingapp/viewreport.html', {'report':report})
+
+
+def viewUserReports(request):
+    data = Report.objects.filter(user=request.user)
+    context = {"reports": data}
+    return render(request, "whistleblowingapp/viewUserReports.html", context)
