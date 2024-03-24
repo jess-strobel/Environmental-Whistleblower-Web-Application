@@ -31,24 +31,24 @@ class Migration(migrations.Migration):
             name='reportDescription',
             field=models.TextField(default=''),
         ),
-        # migrations.AddField(
-        #     model_name='report',
-        #     name='reportJPEG',
-        #     field=models.ImageField(blank=True, null=True, upload_to='report_image/'),
-        # ),
-        # migrations.AddField(
-        #     model_name='report',
-        #     name='reportPDF',
-        #     field=models.FileField(blank=True, null=True, upload_to='report_pdf/'),
-        # ),
-        # migrations.AddField(
-        #     model_name='report',
-        #     name='reportText',
-        #     field=models.FileField(blank=True, null=True, upload_to='report_txt/'),
-        # ),
-        # migrations.AddField(
-        #     model_name='report',
-        #     name='reportTitle',
-        #     field=models.CharField(default='', max_length=255),
-        # ),
+        migrations.AddField(
+            model_name='report',
+            name='reportJPEG',
+            field=models.ImageField(blank=True, null=True, upload_to='report_image/'),
+        ),
+        migrations.AddField(
+            model_name='report',
+            name='reportPDF',
+            field=models.FileField(blank=True, null=True, upload_to='report_pdf/'),
+        ),
+        migrations.AddField(
+            model_name='report',
+            name='reportText',
+            field=models.FileField(blank=True, null=True, upload_to='report_txt/'),
+        ),
+        migrations.AddField(
+            model_name='report',
+            name='reportTitle',
+            field=models.CharField(default='', max_length=255),
+        ),
     ]
