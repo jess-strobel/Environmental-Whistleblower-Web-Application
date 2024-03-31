@@ -1,14 +1,37 @@
+{% load bootstrap5 %}
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in to Google!</title>
+    {% bootstrap_css %}
 </head>
 <body>
-    {% load socialaccount %}
-    <h2>Google Login</h2>
-    <a href = "{% provider_login_url 'google' %}?next=/whistleblowingapp/signedin/">Login with Google here</a>
-    <a href = "signedin"><button>Log in with Anonymous User</button></a>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h2>Environmental Report Form</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-6 col-xs-12 text-center">
+
+            <div class="mb-2">
+                <a href="{% provider_login_url 'google' %}?next=/whistleblowingapp/signedin/" class="btn btn-primary btn-lg w-100">Login with Google</a>
+            </div>
+
+            <div>
+                <a href="signedin" class="btn btn-secondary btn-lg w-100">Log in as Anonymous User</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% bootstrap_javascript %}
+
 </body>
 </html>

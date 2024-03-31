@@ -1,32 +1,74 @@
-<form method="post" action="{% url 'whistleblowingapp:viewreport' report.id %}">
-    {% csrf_token %}
-    <h3>{{ report.reportTitle }}</h3>
-    <p>Report User: {{ report.user }}</p>
-    <p>Report Description: {{ report.reportDescription }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        form {
+            margin: auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            margin-bottom: 5px;
+        }
+        .form-control, .form-control:focus {
+            border-color: #ced4da;
+        }
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <form method="post" action="{% url 'whistleblowingapp:viewreport' report.id %}" class="bg-light p-4 shadow-sm">
+        {% csrf_token %}
+        <h3 class="mb-3">{{ report.reportTitle }}</h3>
+        <div class="form-group">
+            <p><strong>Report User:</strong> {{ report.user }}</p>
+        </div>
+        <div class="form-group">
+            <p><strong>Report Description:</strong> {{ report.reportDescription }}</p>
+        </div>
 
-    <label for="status">Status:</label>
-    <select name="status" id="status">
-        <option value="New" {% if report.status == "New" %} selected {% endif %}>New</option>
-        <option value="In Progress" {% if report.status == "In Progress" %} selected {% endif %}>In Progress</option>
-        <option value="Resolved" {% if report.status == "Resolved" %} selected {% endif %}>Resolved</option>
-    </select>
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select name="status" id="status" class="form-control">
+                <option value="New" {% if report.status == "New" %} selected {% endif %}>New</option>
+                <option value="In Progress" {% if report.status == "In Progress" %} selected {% endif %}>In Progress</option>
+                <option value="Resolved" {% if report.status == "Resolved" %} selected {% endif %}>Resolved</option>
+            </select>
+        </div>
 
-    <br>
-    <br>
+        <div class="form-group">
+            <label for="admin_notes">Admin Notes:</label>
+            <textarea name="admin_notes" id="admin_notes" class="form-control" rows="4">{{ report.admin_notes }}</textarea>
+        </div>
 
-    <label for="admin_notes">Admin Notes:</label>
-    <textarea name="admin_notes" id="admin_notes">{{ report.admin_notes }}</textarea>
+        {% if report.reportText %}
+            <div class="form-group"><a href="{{ report.reportText.url }}" class="btn btn-link">View .txt file</a></div>
+        {% endif %}
+        {% if report.reportPDF %}
+            <div class="form-group"><a href="{{ report.reportPDF.url }}" class="btn btn-link">View PDF</a></div>
+        {% endif %}
+        {% if report.reportJPEG %}
+            <div class="form-group"><a href="{{ report.reportJPEG.url }}" class="btn btn-link">View JPEG</a></div>
+        {% endif %}
 
-    {% if report.reportText %}
-        <p><a href="{{ report.reportText.url }}">View .txt file</a></p>
-    {% endif %}
-    {% if report.reportPDF %}
-        <p><a href="{{ report.reportPDF.url }}">View PDF</a></p>
-    {% endif %}
-    {% if report.reportJPEG %}
-        <p><a href="{{ report.reportJPEG.url }}">View JPEG</a></p>
-    {% endif %}
-    <input type="submit" value="Submit Changes">
-</form>
+        <div class="text-center">
+            <input type="submit" value="Submit Changes" class="btn btn-primary">
+        </div>
+    </form>
 
-<a href="{% url 'whistleblowingapp:allreports' %}">Back</a>
+    <div class="text-center mt-4">
+        <a href="{% url 'whistleblowingapp:allreports' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+</body>
+</html>

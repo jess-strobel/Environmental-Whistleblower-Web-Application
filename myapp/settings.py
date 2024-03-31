@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'storages',
+    'bootstrap5'
 ]
 
 SOCIALACCOUNT_PROVIDERS = {

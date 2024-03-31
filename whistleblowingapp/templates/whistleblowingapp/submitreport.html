@@ -4,29 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        form {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 5px;
+            background: #f5f5f5;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
-<form action="{% url 'whistleblowingapp:submitted' %}" method="post" class = "form" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-        {% if field.name == 'user' %}
-            {% if request.user.is_authenticated %}
-                <div>
-                    <label>User:</label>
-                    <input type="text" value="{{ request.user.username }}" readonly>
-                </div>
-            {% else %}
-                <div>
-                    <label>User:</label>
-                    <input type="text" value="Anonymous" readonly>
+<body>
+    <form action="{% url 'whistleblowingapp:submitted' %}" method="post" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>User:</label>
+            <input type="text" class="form-control" value="{{ request.user.username|default:'Anonymous' }}" readonly>
+        </div>
+        {% for field in form %}
+            {% if field.name != 'user' %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="alert alert-danger">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
                 </div>
             {% endif %}
-        {% else %}
-            <div>
-                {{ field.label_tag }}
-                {{ field }}
-                {{ field.errors }}
-            </div>
-        {% endif %}
-    {% endfor %}
-    <input type="submit" class="btn btn-Dark" value="Report!">
-</form>
+        {% endfor %}
+        <div class="text-center">
+             <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary">Back</a> <input type="submit" class="btn btn-success" value="Report!">
+        </div>
+
+
+    </form>
+</body>
+</html>
