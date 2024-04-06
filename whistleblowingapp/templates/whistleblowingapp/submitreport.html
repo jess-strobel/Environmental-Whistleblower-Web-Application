@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         form {
-            max-width: 500px;
+            max-width: 900px;
+            min-width: 700px;
             margin: auto;
             padding: 20px;
             border-radius: 5px;
@@ -27,7 +28,7 @@
             color: #222222;
         }
         .spacer {
-            min-height: 30px; /* This ensures there's always at least 30px of space */
+            min-height: 30px;
         }
     </style>
 </head>
@@ -38,24 +39,40 @@
             <label>User:</label>
             <input type="text" class="form-control" value="{{ request.user.username|default:'Anonymous' }}" readonly>
         </div>
-        {% for field in form %}
-            {% if field.name != 'user' %}
-                <div class="form-group">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="alert alert-danger">
-                            {{ field.errors }}
-                        </div>
-                    {% endif %}
-                </div>
-            {% endif %}
-        {% endfor %}
-        <div class="text-center">
-             <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary">Back</a> <input type="submit" class="btn btn-success" value="Report!">
+
+
+        <div class="form-group">
+            <label for="id_reportTitle">Report Title:</label>
+            <input type="text" class="form-control" id="id_reportTitle" name="reportTitle" value="{{ form.reportTitle.value|default_if_none:'' }}">
         </div>
 
 
+        <div class="form-group">
+            <label for="id_reportDescription">Report Description:</label>
+            <textarea class="form-control" id="id_reportDescription" name="reportDescription">{{ form.reportDescription.value|default_if_none:'' }}</textarea>
+        </div>
+
+
+        <div class="form-group">
+            <label for="id_reportText">Attach Text File (.txt):</label>
+            <input type="file" class="form-control-file" id="id_reportText" name="reportText">
+        </div>
+
+
+        <div class="form-group">
+            <label for="id_reportPDF">Attach PDF File (.pdf):</label>
+            <input type="file" class="form-control-file" id="id_reportPDF" name="reportPDF">
+        </div>
+
+
+        <div class="form-group">
+            <label for="id_reportJPEG">Attach Image (.jpeg):</label>
+            <input type="file" class="form-control-file" id="id_reportJPEG" name="reportJPEG">
+        </div>
+
+        <div class="text-center">
+             <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary">Back</a> <input type="submit" class="btn btn-success" value="Report!">
+        </div>
     </form>
 </body>
 <footer class="footer">
