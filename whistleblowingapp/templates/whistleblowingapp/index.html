@@ -1,14 +1,79 @@
+{% load django_bootstrap5 %}
+{% load socialaccount %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in to Google!</title>
+    {% bootstrap_css %}
+    <style>
+        body, html {
+            height: 100%;
+            margin-bottom: 80px;
+        }
+        .content-wrap {
+            flex: 1 0 auto;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: #D3D3D3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #222222;
+        }
+        .justified-text {
+            text-align: left;
+        }
+    </style>
 </head>
-<body>
-    {% load socialaccount %}
-    <h2>Google Login</h2>
-    <a href = "{% provider_login_url 'google' %}?next=/whistleblowingapp/signedin/">Login with Google here</a>
-    <a href = "signedin"><button>Log in with Anonymous User</button></a>
+<body style="display: flex; flex-direction: column; height: 100%;">
+
+<div class="container mt-5 content-wrap">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h2>Environmental Report Form</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-sm-6 col-xs-12 text-center">
+            <div class="mb-2">
+                <a href="{% provider_login_url 'google' %}?next=/whistleblowingapp/signedin/" class="btn btn-primary btn-lg w-100">Login with Google</a>
+            </div>
+            <div class="mb-4">
+                <a href="signedin" class="btn btn-secondary btn-lg w-100">Log in as Anonymous User</a>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">How to Use:</h5>
+                    <p class="card-text justified-text">Interested in submitting an environmental whistle-blower report? You're at the right place! Start by either entering anonymously (no personal data will be stored), or with your google account if you want to check the status of your report later. Then simply add a title, give a brief description, and optionally include a PDF, TXT, or JPEG file to your report. After clicking submit, your report will be processed accordingly and sent to the proper authorities.</p>
+
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Want to learn more?</h5>
+                    <a href="https://www.epa.gov/laws-regulations" class="btn btn-success" target="_blank" rel="noopener noreferrer">EPA Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% bootstrap_javascript %}
+
 </body>
+
+<footer class="footer">
+    <p>Disclaimer: This system operates solely as a class project. The system is not monitored and no real information should be submitted.</p>
+</footer>
 </html>

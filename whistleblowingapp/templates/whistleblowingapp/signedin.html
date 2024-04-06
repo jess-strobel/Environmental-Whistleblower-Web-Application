@@ -1,30 +1,65 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    {% bootstrap_css %}
+    <style>
+      body {
+        margin-bottom: 80px;
+      }
+      .logout-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: #D3D3D3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #222222;
+      }
+    </style>
   </head>
-  <body>
+  <body class="d-flex flex-column align-items-center justify-content-start pt-5">
     {% if user.is_authenticated %}
-    <h2>
-      You are signed in as: {{user.first_name}} {{user.last_name}}
-      ({{user.email}})
-    </h2>
-    <h3>Admin/Staff status: {{user.is_staff}}</h3>
-    {% if user.is_staff %} 
-    <a class = "btn btn-Danger" href="{% url 'whistleblowingapp:allreports' %}">See all submitted reports!</a>
-    <br>
-    {% endif %}
-    <a href = "{% url 'whistleblowingapp:viewUserReports' %}">View your Reports!</a>
-    <br>
+      <div class="w-100 text-center">
+        <h2>
+          You are signed in as: {{ user.first_name }} {{ user.last_name }}
+          ({{ user.email }})
+        </h2>
+        <h5>Admin/Staff status: {{ user.is_staff }}</h5>
+        {% if user.is_staff %}
+          <a class="btn btn-secondary my-2" href="{% url 'whistleblowingapp:allreports' %}">See all submitted reports!</a>
+        {% endif %}
+        <a class="btn btn-primary my-2" href="{% url 'whistleblowingapp:viewUserReports' %}">View your Reports!</a>
+      </div>
     {% endif %}
     {% if not user.is_authenticated %}
-    <h2>You are signed in as: Anonymous</h2>
-    <h3>Admin/Staff status: No</h3>
+      <div class="w-100 text-center">
+        <h2>You are signed in as: Anonymous</h2>
+        <h5>Admin/Staff status: No</h5>
+      </div>
     {% endif %}
-    <a class = "btn btn-Danger" href="{% url 'whistleblowingapp:submitreport' %}">Submit a Report!</a>
-    <br>
-    <a href = "logout">Logout</a>
-</body>
+    <div class="w-100 text-center my-4">
+      <a class="btn btn-success" href="{% url 'whistleblowingapp:submitreport' %}">Submit a Report!</a>
+    </div>
+    <a class="btn btn-danger logout-btn" href="logout">Logout</a>
+  </body>
+
+<footer class="footer">
+    <p>Disclaimer: This system operates solely as a class project. The system is not monitored and no real information should be submitted.</p>
+</footer>
 </html>
+
+
