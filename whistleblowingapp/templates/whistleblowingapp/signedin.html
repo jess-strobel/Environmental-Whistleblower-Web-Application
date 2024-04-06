@@ -9,10 +9,25 @@
     <title>Document</title>
     {% bootstrap_css %}
     <style>
+      body {
+        margin-bottom: 80px;
+      }
       .logout-btn {
         position: absolute;
         top: 20px;
         right: 20px;
+      }
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: #D3D3D3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #222222;
       }
     </style>
   </head>
@@ -41,4 +56,10 @@
     </div>
     <a class="btn btn-danger logout-btn" href="logout">Logout</a>
   </body>
+
+<footer class="footer">
+    <p>Disclaimer: This system operates solely as a class project. The system is not monitored and no real information should be submitted.</p>
+</footer>
 </html>
+
+
