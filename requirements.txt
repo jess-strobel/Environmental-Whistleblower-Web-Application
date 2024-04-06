@@ -19,5 +19,5 @@ django-storages
 
 boto3
 
-django_bootstrap5
+django-bootstrap5
 

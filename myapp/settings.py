@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'storages',
-    'django-bootstrap5'
+    'django_bootstrap5'
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
