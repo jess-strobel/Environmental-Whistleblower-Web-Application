@@ -1,10 +1,15 @@
+from unittest.mock import patch, MagicMock
+
 from allauth.socialaccount.models import SocialApp
 from django.contrib.sites.models import Site
-from django.test import TestCase, RequestFactory
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
 
-from whistleblowingapp.models import User
-from whistleblowingapp.views import signedin
+
+
+from whistleblowingapp.models import User, Report, ReportForm
+from whistleblowingapp.views import signedin, viewUserReports
 
 
 # Create your tests here.
@@ -72,7 +77,49 @@ class differentViewsTests(TestCase):
         self.assertIn(("You are signed in as: " + mockFirst + " "+ mockLast), response.content.decode('utf-8'))
         self.assertIn(("Admin/Staff status: False"), response.content.decode('utf-8'))
 
+class ReportFormTests(TestCase):
 
+    def test_valid_data_with_upload(self):
+        dummy_txt = SimpleUploadedFile("report.txt", b"Report text content")
+        dummy_pdf = SimpleUploadedFile("report.pdf", b"PDF content", content_type="application/pdf")
+
+        form_data = {
+            'reportTitle': 'Test Report Title',
+            'reportDescription': 'This is a test report description.',
+        }
+        form = ReportForm(data=form_data, files={'reportText': dummy_txt, 'reportPDF': dummy_pdf})
+        self.assertTrue(form.is_valid())
+
+    def test_valid_data_no_uploads(self):
+        form_data = {
+            'reportTitle': 'Test Report Title',
+            'reportDescription': 'This is a test report description.',
+        }
+        form = ReportForm(data=form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_data_no_data(self):
+        form = ReportForm(data={})
+        self.assertFalse(form.is_valid())
+
+    def test_invalid_data_empty_title(self):
+        form = ReportForm(data={'reportTitle': '', 'reportDescription': 'This is the description'})
+        self.assertFalse(form.is_valid())
+
+    def test_invalid_data_empty_description(self):
+        form = ReportForm(data={'reportTitle': 'This is the title', 'reportDescription': ''})
+        self.assertFalse(form.is_valid())
+
+    def test_report_submitted(self):
+        response = self.client.post(reverse('whistleblowingapp:submitted'), data={
+            'reportTitle': 'Another Test Report xxxasdf',
+            'reportDescription': 'Detailed description of the report123.',
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Report.objects.count(),1)
+        report = Report.objects.first()
+        self.assertEqual(report.reportTitle, 'Another Test Report xxxasdf')
+        self.assertEqual(report.reportDescription, 'Detailed description of the report123.')
 
 
 
