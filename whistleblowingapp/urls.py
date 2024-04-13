@@ -12,4 +12,6 @@ urlpatterns = [
     path("submitted/", views.submitreport, name="submitted"),
     path("viewreport/<int:report_id>/", views.viewreport, name="viewreport"),
     path("viewUserReports/", views.viewUserReports, name="viewUserReports"),
+    path('delete-report/<int:report_id>/', views.deleteReport, name='deleteReport'),
+
 ]

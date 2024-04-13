@@ -122,7 +122,6 @@ class ReportFormTests(TestCase):
         self.assertEqual(report.reportDescription, 'Detailed description of the report123.')
 
 
-
     #TODO: possibly refactor our User model to extend Django AbstractUser idk if necessary??
 
     # then we could make use of methods like force_login
