@@ -74,11 +74,10 @@ def viewUserReports(request):
 
 def deleteReport(request, report_id):
     report = Report.objects.get(pk=report_id)
-    # Ensure that the user requesting the deletion owns the report or is an admin
+
     if report.user != request.user and not request.user.is_superuser:
         raise PermissionDenied("You do not have permission to delete this report.")
 
-    # Delete files associated with the report
     if report.reportText:
         report.reportText.delete()
     if report.reportPDF:
@@ -86,7 +85,6 @@ def deleteReport(request, report_id):
     if report.reportJPEG:
         report.reportJPEG.delete()
 
-    # Delete the report record
     report.delete()
 
     return redirect('whistleblowingapp:viewUserReports')
