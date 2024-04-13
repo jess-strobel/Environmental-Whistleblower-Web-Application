@@ -43,7 +43,8 @@
     <div class="list-group">
         {% for report in reports %}
             <div class="list-group-item">
-                <h3 class="mb-1">{{ forloop.counter }}: <a href="{% url 'whistleblowingapp:viewreport' report.id %}" class="report-title-link">{{ report.reportTitle }}</a></h3>
+<!--                <h3 class="mb-1">{{ forloop.counter }}: <a href="{% url 'whistleblowingapp:viewreport' report.id %}" class="report-title-link">{{ report.reportTitle }}</a></h3>-->
+                <p class="mb-1"><strong>Report Title:</strong> {{ report.reportTitle }}</p>
                 <p class="mb-1"><strong>Report User:</strong> {{ report.user }}</p>
                 <p class="mb-1"><strong>Report Description:</strong> {{ report.reportDescription }}</p>
                 <p class="mb-1"><strong>Status:</strong> {{ report.status }}</p>
