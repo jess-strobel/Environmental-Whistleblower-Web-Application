@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -69,3 +70,21 @@ def viewUserReports(request):
     data = Report.objects.filter(user=request.user)
     context = {"reports": data}
     return render(request, "whistleblowingapp/viewUserReports.html", context)
+
+
+def deleteReport(request, report_id):
+    report = Report.objects.get(pk=report_id)
+
+    if report.user != request.user and not request.user.is_superuser:
+        raise PermissionDenied("You do not have permission to delete this report.")
+
+    if report.reportText:
+        report.reportText.delete()
+    if report.reportPDF:
+        report.reportPDF.delete()
+    if report.reportJPEG:
+        report.reportJPEG.delete()
+
+    report.delete()
+
+    return redirect('whistleblowingapp:viewUserReports')
