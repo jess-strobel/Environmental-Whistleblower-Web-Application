@@ -38,7 +38,10 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <div class="container mt-4">
-    <h1 class="mb-4">Your Reports:</h1>
+    <div class="text-left mt-4">
+        <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary">Back</a>
+    </div>
+    <h1 class="text-center mb-4">Your Reports:</h1>
 
     <div class="list-group">
         {% for report in reports %}
@@ -70,9 +73,7 @@
         {% endfor %}
     </div>
 
-    <div class="text-center mt-4">
-        <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-primary">Back</a>
-    </div>
+
 </div>
 </body>
 <footer class="footer">
