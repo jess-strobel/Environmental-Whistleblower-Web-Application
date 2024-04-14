@@ -6,6 +6,8 @@ from django.urls import reverse
 from .models import User, Report, ReportForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
+import boto3
+from django.conf import settings
 
 
 # Create your views here.
@@ -78,12 +80,17 @@ def deleteReport(request, report_id):
     if report.user != request.user and not request.user.is_superuser:
         raise PermissionDenied("You do not have permission to delete this report.")
 
+    s3 = boto3.client('s3', 
+                      aws_access_key_id=settings.AWS_ACCESS_KEY_ID, 
+                      aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+    
     if report.reportText:
-        report.reportText.delete()
+        s3.delete_object(Bucket=bucket_name, Key=f'static/{report.reportText}')
     if report.reportPDF:
-        report.reportPDF.delete()
+        s3.delete_object(Bucket=bucket_name, Key=f'static/{report.reportPDF}')
     if report.reportJPEG:
-        report.reportJPEG.delete()
+        s3.delete_object(Bucket=bucket_name, Key=f'static/{report.reportJPEG}')
 
     report.delete()
 
