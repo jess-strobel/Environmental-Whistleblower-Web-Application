@@ -95,3 +95,18 @@ def deleteReport(request, report_id):
     report.delete()
 
     return redirect('whistleblowingapp:viewUserReports')
+
+def view_file(request, file_type, file_path):
+    s3 = boto3.client('s3',
+                      aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+                      aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY)
+    bucket_name = settings.AWS_STORAGE_BUCKET_NAME
+    if file_type == 'txt':
+        obj = s3.get_object(Bucket=bucket_name, Key=file_path)
+        return HttpResponse(obj['Body'].read(), content_type='text/plain')
+    elif file_type == 'jpeg':
+        return HttpResponse(f'<img src="https://{bucket_name}.s3.amazonaws.com/{file_path}" />', content_type='text/html')
+    elif file_type == 'pdf':
+        return HttpResponse(f'<embed src="https://{bucket_name}.s3.amazonaws.com/{file_path}" width="100%" height="600px" />', content_type='text/html')
+    else:
+        return HttpResponse('Unsupported file type', status=400)

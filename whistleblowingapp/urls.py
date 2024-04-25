@@ -13,5 +13,6 @@ urlpatterns = [
     path("viewreport/<int:report_id>/", views.viewreport, name="viewreport"),
     path("viewUserReports/", views.viewUserReports, name="viewUserReports"),
     path('delete-report/<int:report_id>/', views.deleteReport, name='deleteReport'),
+    path('view/<str:file_type>/<path:file_path>/', views.view_file, name='view_file'),
 
 ]
