@@ -36,18 +36,56 @@
 
 
     </style>
+    <script>
+    let ascending = true;
+
+    function sortReports() {
+        const order = ['New', 'In Progress', 'Resolved'];
+        let list = document.querySelector('.list-group');
+        let items = Array.from(list.children);
+        items.sort((a, b) => {
+            let statusA = a.querySelector('p:nth-child(4)').textContent.split(': ')[1].trim();
+            let statusB = b.querySelector('p:nth-child(4)').textContent.split(': ')[1].trim();
+            let indexA = order.indexOf(statusA);
+            let indexB = order.indexOf(statusB);
+
+            return ascending ? indexA - indexB : indexB - indexA;
+        });
+
+
+        ascending = !ascending;
+
+        items.forEach(item => list.appendChild(item)); // Re-add sorted items
+
+
+        document.getElementById('sort-toggle').innerHTML = `Toggle Sort by Status ${ascending ? '&uarr;' : '&darr;'}`;
+    }
+
+
+    window.onload = function() {
+        sortReports();
+    }
+</script>
+
+
 </head>
 <body class="d-flex flex-column min-vh-100">
 <div class="container mt-4">
-    <div class="text-left mt-4">
-        <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary">Back</a>
+
+    <div class="row justify-content-between">
+        <div class="col-auto">
+            <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary">Back</a>
+        </div>
+        <div class="col-auto">
+            <button id="sort-toggle" class="btn btn-primary" onclick="sortReports()">Toggle Sort by Status &uarr;</button>
+        </div>
     </div>
     <h1 class="text-center mb-4">All Submitted Reports:</h1>
 
     <div class="list-group">
         {% for report in reports %}
             <div class="list-group-item">
-                <h3 class="mb-1">{{ forloop.counter }}: <a href="{% url 'whistleblowingapp:viewreport' report.id %}" class="report-title-link">{{ report.reportTitle }}</a></h3>
+                <h3 class="mb-1"><a href="{% url 'whistleblowingapp:viewreport' report.id %}" class="report-title-link">{{ report.reportTitle }}</a></h3>
                 <p class="mb-1"><strong>Report User:</strong> {{ report.user }}</p>
                 <p class="mb-1"><strong>Report Description:</strong> {{ report.reportDescription }}</p>
                 <p class="mb-1"><strong>Status:</strong> {{ report.status }}</p>
