@@ -11,7 +11,7 @@ django-heroku
 
 django-database-url
 
-django-allauth
+django-allauth==0.61.1
 
 Pillow
 
