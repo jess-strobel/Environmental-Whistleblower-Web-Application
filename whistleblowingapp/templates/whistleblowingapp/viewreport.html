@@ -11,6 +11,7 @@
             margin: auto;
             max-width: 600px;
             padding: 20px;
+            margin-bottom: 30px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -53,7 +54,7 @@
         }
     </script>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" bottommargin="30px">
 <div class="container mt-5">
     <form method="post" action="{% url 'whistleblowingapp:viewreport' report.id %}" class="bg-light p-4 shadow-sm">
         {% csrf_token %}
@@ -119,8 +120,18 @@
     <div class="text-center mt-4">
         <a href="{% url 'whistleblowingapp:allreports' %}" class="btn btn-secondary">Back</a>
     </div>
+
 </div>
 </body>
+{% spaceless %}
+<div class = 'description' contenteditable = 'true' placeholder='{{my_placeholder}}'>
+</div>
+{% endspaceless %}
+{% spaceless %}
+<div class = 'description' contenteditable = 'true' placeholder='{{my_placeholder}}'>
+</div>
+{% endspaceless %}
+
 <footer class="footer">
     <p>Disclaimer: This system operates solely as a class project. The system is not monitored and no real information should be submitted.</p>
 </footer>
