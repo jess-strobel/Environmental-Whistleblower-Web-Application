@@ -9,6 +9,14 @@
         body {
             padding-bottom: 70px;
         }
+        .report-container {
+            border: 2px solid #006400; /* Dark green border */
+            background-color: #e0f6ea; /* Pale green background */
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
         .report-title-link {
             color: red;
         }
@@ -32,6 +40,10 @@
         .spacer {
             min-height: 30px;
         }
+        /* Updated style for back button */
+        .back-btn {
+            font-size: 1.5rem; /* Larger font size */
+        }
     </style>
      <script>
         function confirmDeletion(event) {
@@ -43,15 +55,15 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <div class="container mt-4">
+    <!-- Updated back button -->
     <div class="text-left mt-4">
-        <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary">Back</a>
+        <a href="{% url 'whistleblowingapp:signedin' %}" class="btn btn-secondary back-btn">Back</a> <!-- Line changed -->
     </div>
     <h1 class="text-center mb-4">Your Reports:</h1>
 
     <div class="list-group">
         {% for report in reports %}
-            <div class="list-group-item">
-<!--                <h3 class="mb-1">{{ forloop.counter }}: <a href="{% url 'whistleblowingapp:viewreport' report.id %}" class="report-title-link">{{ report.reportTitle }}</a></h3>-->
+            <div class="list-group-item report-container">
                 <p class="mb-1"><strong>Report Title:</strong> {{ report.reportTitle }}</p>
                 <p class="mb-1"><strong>Report User:</strong> {{ report.user }}</p>
                 <p class="mb-1"><strong>Report Description:</strong> {{ report.reportDescription }}</p>
@@ -78,8 +90,6 @@
         {% endfor %}
         <spacer></spacer>
     </div>
-
-
 </div>
 </body>
 <footer class="footer">
