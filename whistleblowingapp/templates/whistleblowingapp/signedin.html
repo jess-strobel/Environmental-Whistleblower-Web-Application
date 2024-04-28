@@ -10,27 +10,23 @@
     <title>Signed In</title>
     {% bootstrap_css %}
     <style>
-        body {
-            margin-bottom: 80px;
-        }
-        .logout-btn {
+	body, html {
+	    margin: 0;
+	    padding: 0;
+	}
+	footer {
+	background-color: #333; 
+        color: #fff;
+        padding: 10px; 
+        text-align: center;
+        width: 100%; 
+        bottom: 0; 
+        left: 0;
+	}
+	.logout-btn {
             position: absolute;
             top: 20px;
             right: 20px;
-        }
-        .footer {
-            position: fixed;
-            background-color: #D3D3D3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-            margin-top: 50px;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            color: #222222;
         }
         .custom-card {
             margin-left: 30px;
@@ -135,7 +131,10 @@
     <a class="btn btn-danger logout-btn" href="logout">Logout</a>
 </body>
 
-<footer class="footer">
-    <p>Disclaimer: This system operates solely as a class project. The system is not monitored and no real information should be submitted.</p>
+<footer class="bg-dark py-1 mt-3">
+    <div class="container text-light text-center">
+        <p> Disclaimer: This system operates solely as a class project. The system is not monitored and no real information should be submitted. </p>
+    </div>
 </footer>
+
 </html>
