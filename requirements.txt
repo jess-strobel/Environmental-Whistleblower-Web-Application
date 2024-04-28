@@ -21,3 +21,5 @@ boto3
 
 django-bootstrap5
 
+python-dotenv
+
