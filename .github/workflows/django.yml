@@ -14,12 +14,6 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.9]
-        
-    env:
-      AWS_ACCESS_KEY_ID: ***REMOVED***
-      AWS_SECRET_ACCESS_KEY: ***REMOVED***
-      AWS_STORAGE_BUCKET_NAME: environmental-whistleblowing-app-storage
-      SECRET_KEY: django-insecure-_1r#vj=#g(53gif$y&ybs3a0_-u8gfz^y^k)90cu8t_yn3#ay-
 
     steps:
     - uses: actions/checkout@v3
@@ -31,6 +25,18 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+      - name: Create .env file
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+        echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+        echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}" >> .env
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_STORAGE_BUCKET_NAME: ${{ secrets.AWS_STORAGE_BUCKET_NAME }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  
     - name: Run Tests
       run: |
         python manage.py test
