@@ -17,10 +17,6 @@ jobs:
           envkey_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           envkey_AWS_STORAGE_BUCKET_NAME: ${{ secrets.AWS_STORAGE_BUCKET_NAME }}
           envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          directory: project-b-21 
-          file_name: .env
-          fail_on_empty: false
-          sort_keys: false
 
   build:
     runs-on: ubuntu-latest
