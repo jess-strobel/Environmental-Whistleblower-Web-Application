@@ -14,6 +14,12 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: [3.9]
+        
+    env:
+      AWS_ACCESS_KEY_ID: ***REMOVED***
+      AWS_SECRET_ACCESS_KEY: ***REMOVED***
+      AWS_STORAGE_BUCKET_NAME: environmental-whistleblowing-app-storage
+      SECRET_KEY: django-insecure-_1r#vj=#g(53gif$y&ybs3a0_-u8gfz^y^k)90cu8t_yn3#ay-
 
     steps:
     - uses: actions/checkout@v3
