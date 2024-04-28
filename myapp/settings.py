@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','whistleblower-b-21-3d4d90ef9657.heroku
 # Application definition
 
 #CHANGE BACK TO 2 BEFORE MERGING WITH MAIN
-SITE_ID = 2
+SITE_ID = 3
 
 INSTALLED_APPS = [
     'whistleblowingapp.apps.WhistleblowingappConfig',
