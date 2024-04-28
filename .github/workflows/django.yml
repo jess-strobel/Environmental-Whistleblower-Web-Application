@@ -7,6 +7,21 @@ on:
     branches: [ "main" ]
 
 jobs:
+  create-envfile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make envfile
+        uses: project-b-21/create-envfile@v2.0
+        with:
+          envkey_AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          envkey_AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          envkey_AWS_STORAGE_BUCKET_NAME: ${{ secrets.AWS_STORAGE_BUCKET_NAME }}
+          envkey_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          directory: project-b-21 
+          file_name: .env
+          fail_on_empty: false
+          sort_keys: false
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -24,18 +39,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Create .env file
-        run: |
-          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
-          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
-          echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}" >> .env
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_STORAGE_BUCKET_NAME: ${{ secrets.AWS_STORAGE_BUCKET_NAME }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-  
       - name: Run Tests
         run: |
           python manage.py test
