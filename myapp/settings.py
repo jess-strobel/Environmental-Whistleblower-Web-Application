@@ -186,6 +186,8 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = "/whistleblowingapp/signedin/"
 LOGOUT_REDIRECT_URL = "/whistleblowingapp"
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 
 #Added by Henry
 try:

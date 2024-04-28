@@ -12,7 +12,10 @@ from django.conf import settings
 
 # Create your views here.
 def index(request):
+    if request.user.is_authenticated:
+        logout(request)
     return render(request, "whistleblowingapp/index.html")
+
 
 def signedin(request):
     return render(request, "whistleblowingapp/signedin.html", {'posts': Report.objects.all()})
@@ -110,3 +113,4 @@ def view_file(request, file_type, file_path):
         return HttpResponse(f'<embed src="https://{bucket_name}.s3.amazonaws.com/{file_path}" width="100%" height="600px" />', content_type='text/html')
     else:
         return HttpResponse('Unsupported file type', status=400)
+
