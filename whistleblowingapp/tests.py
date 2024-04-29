@@ -115,7 +115,7 @@ class ReportFormTests(TestCase):
             'reportTitle': 'Another Test Report xxxasdf',
             'reportDescription': 'Detailed description of the report123.',
         })
-        self.assertEqual(response.status_code, 302)
+        self.assertTemplateUsed(response, 'whistleblowingapp/submitted.html')
         self.assertEqual(Report.objects.count(),1)
         report = Report.objects.first()
         self.assertEqual(report.reportTitle, 'Another Test Report xxxasdf')
