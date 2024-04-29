@@ -82,8 +82,7 @@
     {% if user.is_authenticated %}
     <div class="w-100 text-center">
       <h2>
-        You are signed in as: {{ user.first_name }} {{ user.last_name }} ({{
-        user.email }})
+        You are signed in as: {{ user.first_name }} {{ user.last_name }} ({{  user.email }})
       </h2>
       <h5>Admin/Staff status: {{ user.is_staff }}</h5>
       {% if user.is_staff %}
