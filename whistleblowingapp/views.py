@@ -6,6 +6,7 @@ from django.urls import reverse
 from .models import User, Report, ReportForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import ValidationError
 import boto3
 from django.conf import settings
 
@@ -37,21 +38,37 @@ def allreports(request):
 def submitreport(request):
     if request.method == 'POST':
         form = ReportForm(request.POST, request.FILES)
-        print(form.errors)
         if form.is_valid():
+            # Validate file types
+            jpeg = form.cleaned_data.get('reportJPEG')
+            txt = form.cleaned_data.get('reportText')
+            pdf = form.cleaned_data.get('reportPDF')
+
+            if jpeg and jpeg.content_type != 'image/jpeg':
+                form.add_error('reportJPEG', 'Only JPEG files are allowed.')
+                return render(request, 'whistleblowingapp/submitreport.html', {'form': form})
+
+            if txt and txt.content_type != 'text/plain':
+                form.add_error('reportText', 'Only TXT files are allowed.')
+                return render(request, 'whistleblowingapp/submitreport.html', {'form': form})
+
+            if pdf and pdf.content_type != 'application/pdf':
+                form.add_error('reportPDF', 'Only PDF files are allowed.')
+                return render(request, 'whistleblowingapp/submitreport.html', {'form': form})
+
             # Save the report using the form's cleaned data
             report = form.save(commit=False)  # Don't save to database yet
 
-            if (request.user.is_authenticated):
+            if request.user.is_authenticated:
                 report.user = request.user
             else:
                 report.user = None
 
             report.save()
-            return HttpResponseRedirect(reverse("whistleblowingapp:submitted"))    
+            return render(request, 'whistleblowingapp/submitted.html')  
     else:
         form = ReportForm()
-    return render(request, 'whistleblowingapp/submitted.html')
+    return render(request, 'whistleblowingapp/submitreport.html', {'form': form})
 
 def viewreport(request, report_id):
     report = get_object_or_404(Report, pk=report_id)
