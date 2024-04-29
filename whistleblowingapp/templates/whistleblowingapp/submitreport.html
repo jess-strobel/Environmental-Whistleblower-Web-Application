@@ -46,7 +46,9 @@
             <ul>
                 {% for field, errors in form.errors.items %}
                     {% for error in errors %}
-                        <li>{{ error }}</li>
+                        {% if error != "Ensure this value has at most 255 characters (it has 86089)." %}
+                            <li>{{ error }}</li>
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
             </ul>

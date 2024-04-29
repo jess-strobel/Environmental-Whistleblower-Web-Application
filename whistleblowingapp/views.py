@@ -38,6 +38,9 @@ def allreports(request):
 def submitreport(request):
     if request.method == 'POST':
         form = ReportForm(request.POST, request.FILES)
+        if (len(form.data.get('reportTitle')) > 255):
+            form.add_error('reportTitle', 'Please ensure the title has less than 255 characters')
+            return render(request, 'whistleblowingapp/submitreport.html', {'form': form})       
         if form.is_valid():
             # Validate file types
             jpeg = form.cleaned_data.get('reportJPEG')
