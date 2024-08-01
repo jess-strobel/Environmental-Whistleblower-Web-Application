@@ -1,7 +1,15 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/qgEWmaMc)
-# Django Practice Assessment
+# Environmental Whistleblower Web Application
 
-__Name:__
+This project was created as part of the University of Virginia's Software Engineering course. The site allows users to report an environmental violation, either anonymously or using their Google account. Users who sign in to the site can view the status of their submitted reports as well as any actions taken as a result of these submissions. Users granted administrator access can view all submitted reports, make submission status changes, and leave comments for users regarding the outcome of their reports. 
 
-__Computing ID:__
+Access the site here: https://whistleblower-b-21-3d4d90ef9657.herokuapp.com/
 
+_Note that this application was created for a class project and is not actively monitored._
+
+## Authors
+
+* **Jess Strobel** - *Requirements Manager*
+* **Caroline Coughlin** - *Scrum Master*
+* **Henry Chen** - *DevOps Manager*
+* **Alex Talreja** - *Testing Manager*
+* **Timothy Sue** - *Software Architect*
